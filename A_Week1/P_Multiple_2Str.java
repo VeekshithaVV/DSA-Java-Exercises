@@ -17,9 +17,38 @@ public class P_Multiple_2Str {
         // BigInteger b = new BigInteger(num2);
         // return a.multiply(b).toString();
 
+        
+
+        boolean negative = false;
+
+        /*
+        + × + = +
+        + × - = -
+        - × + = -
+        - × - = +
+        */
+        if(num1.charAt(0) == '-') {
+            negative = !negative;
+            num1 = num1.substring(1);
+        }
+
+        if(num2.charAt(0) == '-') {
+            negative = !negative;
+            num2 = num2.substring(1);
+        }
+
         int len1 = num1.length();
         int len2 = num2.length();
 
+        if ((len1 == 1 && num1.charAt(0) == '0') || (len2 == 1 && num2.charAt(0) == '0')) {
+            System.out.println(num1+" * "+num2+" = "+"0");
+            return;
+        }
+
+        // remove leading zeros
+        num1 = num1.replaceFirst("^0+", "");
+        num2 = num2.replaceFirst("^0+", "");
+        
         int[] result = new int[len1 + len2];
 
         for(int i=len1-1; i>=0; i--){
@@ -48,6 +77,9 @@ public class P_Multiple_2Str {
 
         if(res.length() == 0){
             System.out.println(num1+" * "+num2+" = "+"0");
+        }
+        if(negative){
+            res.insert(0, '-');
         }
         else{
             System.out.println(num1+" * "+num2+" = "+res.toString());
